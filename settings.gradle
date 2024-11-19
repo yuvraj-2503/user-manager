@@ -1,0 +1,5 @@
+rootProject.name = 'user-manager'
+include 'client'
+include 'common'
+include 'filestore'
+
