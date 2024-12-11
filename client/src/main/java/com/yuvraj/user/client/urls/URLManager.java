@@ -3,6 +3,7 @@ package com.yuvraj.user.client.urls;
 import com.yuvraj.filestore.BlockManager;
 import com.yuvraj.filestore.file.JsonFile;
 import com.yuvraj.filestore.file.PlainFile;
+import com.yuvraj.user.common.Env;
 import com.yuvraj.util.json.JsonException;
 import lombok.RequiredArgsConstructor;
 //import lombok.extern.slf4j.Slf4j;
@@ -20,9 +21,11 @@ public class URLManager {
     private static final String fileName = "urls";
     private final BlockManager blockManager;
     private final String locatorUrl;
+    private final Env env;
 
-    public URLManager(String locatorUrl, Path path) {
+    public URLManager(String locatorUrl, Path path, Env env) {
         this.locatorUrl = locatorUrl;
+        this.env = env;
         blockManager = new BlockManager(path);
     }
 
@@ -39,7 +42,7 @@ public class URLManager {
     }
 
     private Map<String, String> create() {
-        Map<String, String> urls = new ServiceLocatorClient(locatorUrl).get().join();
+        Map<String, String> urls = new ServiceLocatorClient(locatorUrl, env).get().join();
         blockManager.create(fileName);
         JsonFile<Map> file = getFile();
         file.write(urls);
@@ -47,7 +50,7 @@ public class URLManager {
     }
 
     public Map<String, String> sync() {
-        Map<String, String> urls = new ServiceLocatorClient(locatorUrl).get().join();
+        Map<String, String> urls = new ServiceLocatorClient(locatorUrl, env).get().join();
         JsonFile<Map> file = getFile();
         file.write(urls);
         return urls;

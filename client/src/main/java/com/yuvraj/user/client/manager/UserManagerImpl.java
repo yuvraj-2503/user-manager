@@ -1,6 +1,9 @@
 package com.yuvraj.user.client.manager;
 
 import com.yuvraj.user.client.auth.UserAuthenticator;
+import com.yuvraj.user.client.profile.ProfileManager;
+import com.yuvraj.user.client.profile.ProfileManagerImpl;
+import com.yuvraj.user.client.profile.local.LocalProfileIOImpl;
 import com.yuvraj.user.client.signin.SignInSession;
 import com.yuvraj.user.client.signin.SignInSessionImpl;
 import com.yuvraj.user.client.signup.SignUpSession;
@@ -21,7 +24,7 @@ public class UserManagerImpl implements UserManager {
 
     private final AuthContext authContext;
     public UserManagerImpl(Path path, AuthConfig authConfig) {
-        var urls = new URLManager(authConfig.getLocatorUrl(), path).getUrl();
+        var urls = new URLManager(authConfig.getLocatorUrl(), path, authConfig.getEnv()).getUrl();
         this.authContext = new AuthContext(path, authConfig, urls, authConfig.getApp());
     }
 
@@ -39,5 +42,15 @@ public class UserManagerImpl implements UserManager {
     public CompletableFuture<User> signIn(String userId) {
         var authenticator = new UserAuthenticator(authContext);
         return authenticator.authenticate(userId);
+    }
+
+    @Override
+    public ProfileManager getProfileManager(User user) {
+        var localProfileIO = new LocalProfileIOImpl(user.userId(), authContext.getBlockPath());
+        return new ProfileManagerImpl(
+                authContext.userUrl(),
+                user.apiKey(),
+                localProfileIO
+        );
     }
 }

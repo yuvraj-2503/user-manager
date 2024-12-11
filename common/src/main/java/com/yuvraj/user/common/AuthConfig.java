@@ -11,4 +11,5 @@ public class AuthConfig {
     private final App app;
     private final Device device;
     private final String locatorUrl;
+    private final Env env;
 }
