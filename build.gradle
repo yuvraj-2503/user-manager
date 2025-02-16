@@ -3,7 +3,7 @@ plugins {
     id 'maven-publish'
 }
 
-group = 'com.github.yuvraj-2503'
+group = 'com.github.yuvraj-2503.user-manager'
 version = '1.0.0'
 
 repositories {
