@@ -15,6 +15,7 @@ import com.yuvraj.user.common.Contact;
 import com.yuvraj.user.common.user.User;
 
 import java.nio.file.Path;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -52,5 +53,10 @@ public class UserManagerImpl implements UserManager {
                 user.apiKey(),
                 localProfileIO
         );
+    }
+
+    @Override
+    public Map<String, String> getUrls() {
+        return authContext.getUrls();
     }
 }

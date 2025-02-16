@@ -6,6 +6,7 @@ import com.yuvraj.user.client.signup.SignUpSession;
 import com.yuvraj.user.common.Contact;
 import com.yuvraj.user.common.user.User;
 
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -19,4 +20,6 @@ public interface UserManager {
     CompletableFuture<User> signIn(String userId);
 
     ProfileManager getProfileManager(User user);
+
+    Map<String, String> getUrls();
 }
