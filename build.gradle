@@ -1,12 +1,15 @@
 plugins {
     id 'java'
+    id 'maven-publish'
 }
 
-group = 'com.yuvraj'
-version = '1.0-SNAPSHOT'
+group = 'com.github.yuvraj-2503'
+version = '1.0.0'
 
 repositories {
     mavenCentral()
+    mavenLocal()
+    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
