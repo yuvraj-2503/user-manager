@@ -29,8 +29,8 @@ test {
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            from components.java
-            groupId = 'com.github.yuvraj-2503'
+//            from components.java
+//            groupId = 'com.github.yuvraj-2503'
             artifactId = 'filestore'
             version = '1.0.0'
         }
