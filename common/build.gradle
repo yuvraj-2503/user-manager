@@ -9,7 +9,14 @@ version = '1.0.0'
 repositories {
     mavenCentral()
     mavenLocal()
-    maven { url 'https://jitpack.io' }
+    maven {
+        name = "GitLab"
+        url = uri(project.findProperty("gitlab.repo.url"))
+        credentials {
+            username = project.findProperty("gitlab.user")
+            password = project.findProperty("gitlab.key")
+        }
+    }
 }
 
 dependencies {
@@ -32,6 +39,18 @@ publishing {
             groupId = 'com.github.yuvraj-2503.user-manager'
             artifactId = 'common'
             version = '1.0.0'
+        }
+    }
+
+    repositories {
+        mavenLocal()
+        maven {
+            name = "GitLab"
+            url = uri(project.findProperty("gitlab.repo.url"))
+            credentials {
+                username = project.findProperty("gitlab.user")
+                password = project.findProperty("gitlab.key")
+            }
         }
     }
 }
